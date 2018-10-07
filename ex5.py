@@ -1,16 +1,20 @@
 MAX_BEERS = 99
 ZERO_TEXT = "no more"
-# Loop 0-99
+
 for beers_drank in range(0, MAX_BEERS + 1, 1):
     beers = MAX_BEERS - beers_drank # Number of bottles on wall
 
-    # Line 2
+    # Return text with correct plurality.
+    def bottle_text(beers = beers):
+        return f"bottle{'s' * (beers != 1)}"
+
+    # If beers are drank, print number now remaining.
     if(beers_drank != 0):
-        print(f"Take one down, pass it around, {beers or ZERO_TEXT} bottles of beer on the wall.")
+        print(f"Take {'one' if beers else 'it'} down, pass it around, {beers or ZERO_TEXT} {bottle_text()} of beer on the wall.")
 
-    # Line 1
-    print(f"{beers or ZERO_TEXT.capitalize()} bottles of beer on the wall, {beers or ZERO_TEXT} bottles of beer...")
+    # Print current number of beers remaining on wall.
+    print(f"{beers or ZERO_TEXT.capitalize()} {bottle_text()} of beer on the wall, {beers or ZERO_TEXT} {bottle_text()} of beer...")
 
-    # On final loop print: ending verse
+    # When beers have ran out, restock.
     if(beers == 0):
-        print(f"Go to the store and buy some more, {MAX_BEERS} bottles of beer on the wall")
+        print(f"Go to the store and buy some more, {MAX_BEERS} {bottle_text(MAX_BEERS)} of beer on the wall.")
