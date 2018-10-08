@@ -20,6 +20,7 @@ while(current_savings < savings_target):
     current_savings += (current_savings * SAVINGS_INTEREST_RATE) + monthly_savings
     total_time += 1
 
-print(f"Deposit: £{savings_target}")
-print(f"Monthly Savings: £{monthly_savings}")
+# Display results
+print(f"Deposit: £{savings_target: .2f}")
+print(f"Monthly Savings: £{monthly_savings: .2f}")
 print(f"Time: {total_time} months")
