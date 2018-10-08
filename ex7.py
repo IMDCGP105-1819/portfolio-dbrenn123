@@ -10,3 +10,12 @@ saved_portion = float(input("Enter amount to be saved: %")) / 100
 # Calculate required values
 savings_target = total_cost * DEPOSIT_RATE
 monthly_savings = salary * saved_portion / 12
+
+# Track savings over time
+current_savings = monthly_savings
+total_time = 0
+
+# Increment time until target savings reached
+while(current_savings < savings_target):
+    current_savings += (current_savings * SAVINGS_INTEREST_RATE) + monthly_savings
+    total_time += 1
