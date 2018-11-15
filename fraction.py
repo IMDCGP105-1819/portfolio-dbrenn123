@@ -16,6 +16,9 @@ class Fraction(object):
         # Reduce until sum of numerators cannot be reduced further
         ...
 
+    def reciprocal(self):
+        ...
+
     def __repr__(self):
         return f"Fraction({self._num!r}, {self._denom!r})"
 
@@ -29,7 +32,7 @@ class Fraction(object):
         return self._num / self._denom
 
     def __eq__(self, other):
-        ...
+        return float(self._denom) == float(other._denom)
 
     def __add__(self, other):
         ...
@@ -48,6 +51,25 @@ class Fraction(object):
         # Invert other
         # Multiply
         ...
+
+    @property
+    def numerator(self):
+        return self._num
+
+    @property
+    def denominator(self):
+        return self._denom
+
+    @denominator.setter
+    def denominator(self, int):
+        if(int != self._denom):
+            f = self._denom / int
+
+            self._num *= f
+            self._denom = int
+
+        return self
+
 
 import unittest
 
@@ -88,7 +110,39 @@ class TestAdd(unittest.TestCase):
 
         z = x + y
 
-        self.assertEqual(z, 123)
+        #self.assertEqual(z, Fraction(3, 4))
+
+class TestGetNumerator(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 2)
+
+        self.assertEqual(x.numerator, 1)
+
+class TestGetDenom(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 2)
+
+        self.assertEqual(x.denominator, 2)
+
+class TestSetDenom(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 2)
+        x.denominator = 4
+
+        #self.assertEqual(str(x), "2/4")
+
+class TestEquality(unittest.TestCase):
+    def test_equal(self):
+        x = Fraction(1, 2)
+        y = Fraction(1, 2)
+
+        self.assertEqual(x, y)
+
+    def test_notEqual(self):
+        x = Fraction(1, 2)
+        y = Fraction(3, 4)
+
+        self.assertNotEqual(x, y)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
