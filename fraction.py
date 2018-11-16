@@ -11,10 +11,19 @@ class Fraction(object):
             return kwargs.get('factor')
 
     # Calculate lowest common denominator
-    def lcd(*fractions):
-        # Get common factor between denominators
+    @staticmethod
+    def lcd(a, b):
+        #cf = Fraction._common_factor(*[o._denom for o in fractions])
         # Reduce until sum of numerators cannot be reduced further
-        ...
+
+        # Find greatest common divisor
+        def gcd(a, b):
+            if(b == 0):
+                return a
+
+            return gcd(b, a % b)
+
+        return int(a._denom * b._denom / gcd(a._denom, b._denom));
 
     def reciprocal(self):
         ...
@@ -29,13 +38,15 @@ class Fraction(object):
         return self._num // self._denom
 
     def __float__(self):
-        return self._num / self._denom
+        return float(self._num) / float(self._denom)
 
     def __eq__(self, other):
-        return float(self._denom) == float(other._denom)
+        return float(self) == float(other)
 
     def __add__(self, other):
-        ...
+        denom = Fraction.lcd(self, other)
+
+        return Fraction(self._num + other._num, denom)
 
     def __sub__(self, other):
         # Get common denominator
@@ -54,16 +65,18 @@ class Fraction(object):
 
     @property
     def numerator(self):
-        return self._num
+        return int(self._num)
 
     @property
     def denominator(self):
-        return self._denom
+        return int(self._denom)
 
     @denominator.setter
     def denominator(self, int):
         if(int != self._denom):
-            f = self._denom / int
+            min_ = min(self._denom, int)
+            max_ = max(self._denom, int)
+            f = max_ / min_
 
             self._num *= f
             self._denom = int
@@ -110,7 +123,7 @@ class TestAdd(unittest.TestCase):
 
         z = x + y
 
-        #self.assertEqual(z, Fraction(3, 4))
+        self.assertEqual(z, Fraction(3, 4))
 
 class TestGetNumerator(unittest.TestCase):
     def test_(self):
@@ -129,7 +142,8 @@ class TestSetDenom(unittest.TestCase):
         x = Fraction(1, 2)
         x.denominator = 4
 
-        #self.assertEqual(str(x), "2/4")
+        self.assertEqual(x.denominator, 4)
+        self.assertEqual(x.numerator, 2)
 
 class TestEquality(unittest.TestCase):
     def test_equal(self):
@@ -144,5 +158,12 @@ class TestEquality(unittest.TestCase):
 
         self.assertNotEqual(x, y)
 
+class TestLCD(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 12)
+        y = Fraction(1, 18)
+        lcd = Fraction.lcd(x, y)
+
+        self.assertEqual(lcd, 36)
 if __name__ == '__main__':
     unittest.main(verbosity=2)
