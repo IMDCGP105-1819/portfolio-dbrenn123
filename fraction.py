@@ -53,14 +53,10 @@ class Fraction(object):
         return Fraction(num, denom)
 
     def __mul__(self, other):
-        # Multiply numerators
-        # Multiply denominators
-        ...
+        return Fraction(self._num * other._num, self._denom * other._denom)
 
     def __truediv__(self, other):
-        # Invert other
-        # Multiply
-        ...
+        return self * other.inverse()
 
     def denominator(self, int):
         if(int != self._denom):
@@ -179,6 +175,22 @@ class TestInverse(unittest.TestCase):
         y = x.inverse()
 
         self.assertEqual(y, Fraction(5, 3))
+
+class TestMultiply(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 4)
+        y = Fraction(1, 2)
+        z = x * y
+
+        self.assertEqual(z, Fraction(1, 8))
+
+class TestDivide(unittest.TestCase):
+    def test_(self):
+        x = Fraction(1, 8)
+        y = Fraction(1, 2)
+        z = x / y
+
+        self.assertEqual(z, Fraction(1, 4))
         
 if __name__ == '__main__':
     unittest.main(verbosity=2)
