@@ -72,6 +72,9 @@ class Fraction(object):
         else:
             return self
 
+    def inverse(self):
+        return Fraction(self._denom, self._num)
+
 import unittest
 
 class TestConstruct(unittest.TestCase):
@@ -169,5 +172,13 @@ class TestLCD(unittest.TestCase):
         lcd = Fraction.lcd(x, y)
 
         self.assertEqual(lcd, 36)
+
+class TestInverse(unittest.TestCase):
+    def test_(self):
+        x = Fraction(3, 5)
+        y = x.inverse()
+
+        self.assertEqual(y, Fraction(5, 3))
+        
 if __name__ == '__main__':
     unittest.main(verbosity=2)
